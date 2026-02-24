@@ -69,7 +69,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.homeService.getDoctors().subscribe({
-      next: (data) => {
+      next: (data:any) => {
         this.doctors = data;
 
         this.doctors.forEach(d => {
@@ -84,7 +84,7 @@ export class HomeComponent implements OnInit {
           });
         });
       },
-      error: () => {
+      error: (err:any) => {
         console.warn('Failed to load doctors from backend.');
       }
     });

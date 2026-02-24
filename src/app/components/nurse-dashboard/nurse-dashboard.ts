@@ -48,10 +48,11 @@ export class NurseDashboard implements OnInit {
       phone: ['']
     });
 
-    this.roleService.getRoles().subscribe({
-      next: (data) => {
+   this.roleService.getRoles().subscribe({
+      next: (data: any[]) => {
         this.roles = data.filter(role => role.roleName === 'Nurse');
-      }
+      },
+      error: (err: any) => console.error(err)
     });
   }
 openModal() {
@@ -62,14 +63,14 @@ closeModal() {
   this.showModal = false;
 }
 
-  loadNurses(): void {
+ loadNurses(): void {
     this.nurseAssignmentService.getNurses().subscribe({
-      next: (data) => {
+      next: (data: any[]) => {
         this.nurses = data;
 
         this.nurses.forEach(nurse => {
           this.nurseImageService.getNurseImage(nurse.nurseId).subscribe({
-            next: (blob) => {
+            next: (blob: Blob) => {
               nurse.imageUrl = URL.createObjectURL(blob);
             },
             error: () => {
@@ -80,7 +81,7 @@ closeModal() {
 
         this.loading = false;
       },
-      error: () => {
+      error: (err: any) => { // Added : any here
         this.error = 'Failed to load nurses.';
         this.loading = false;
       }
@@ -106,7 +107,7 @@ closeModal() {
       };
 
       this.authService.register(userPayload).subscribe({
-        next: (user) => {
+        next: (user: any) => {
           const nursePayload = {
             name: this.form.value.name,
             specialty: this.form.value.specialty,
@@ -117,7 +118,7 @@ closeModal() {
           };
 
           this.nurseAssignmentService.createNurse(nursePayload).subscribe({
-            next: (nurse) => {
+            next: (nurse: any) => { // Added : any here
               if (this.profileImage) {
                 this.nurseImageService.uploadNurseImage(nurse.nurseId, this.profileImage).subscribe({
                   next: () => this.finalizeSave(),
@@ -127,13 +128,13 @@ closeModal() {
                 this.finalizeSave();
               }
             },
-            error: (err) => {
+            error: (err: any) => { // Added : any here
               this.error = err.error || 'Failed to save nurse profile';
               this.loading = false;
             }
           });
         },
-        error: (err) => {
+        error: (err: any) => { 
           this.error = err.error || 'Failed to register user';
           this.loading = false;
         }
