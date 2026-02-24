@@ -24,8 +24,8 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/register`, data);
   }
 
-  getRoles(): Observable<any> {
-    return this.http.get('https://localhost:7243/api/Roles');
+ getRoles(): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/Roles`);
   }
 
   // ✅ Store everything as one object
