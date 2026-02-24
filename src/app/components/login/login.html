@@ -1,0 +1,46 @@
+<div class="container mt-5">
+  <h2 class="mb-4 text-center">Login</h2>
+
+  <form [formGroup]="form" (ngSubmit)="login()" class="needs-validation" novalidate>
+    <div class="mb-3">
+      <label for="username" class="form-label">Username</label>
+      <input
+        id="username"
+        type="text"
+        class="form-control"
+        formControlName="username"
+        [class.is-invalid]="form.get('username')?.invalid && form.get('username')?.touched"
+      />
+      <div class="invalid-feedback">Username is required.</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input
+        id="password"
+        type="password"
+        class="form-control"
+        formControlName="password"
+        [class.is-invalid]="form.get('password')?.invalid && form.get('password')?.touched"
+      />
+      <div class="invalid-feedback">Password is required.</div>
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100" [disabled]="form.invalid || loading">
+      <ng-container *ngIf="!loading">Login</ng-container>
+      <ng-container *ngIf="loading">
+        <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+        Logging in...
+      </ng-container>
+    </button>
+  </form>
+
+  <div *ngIf="error" class="alert alert-danger mt-3 text-center">{{ error }}</div>
+
+  <div class="text-center mt-4">
+    <!-- <p class="mb-1">Don’t have an account?</p> -->
+    <!-- <a routerLink="/auth/register" class="btn btn-outline-secondary">
+      <i class="bi bi-person-plus-fill"></i> Register here
+    </a> -->
+  </div>
+</div>

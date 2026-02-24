@@ -1,0 +1,67 @@
+<h2 class="section-title">Our Nurses</h2>
+
+<!--  Create Nurse Button -->
+<div class="text-end">
+  <!-- <button class="btn btn-success" (click)="openModal()">Create Nurse</button> -->
+
+</div>
+
+<!-- Loading & Error States -->
+<div *ngIf="loading" class="loading">Loading nurses...</div>
+<div *ngIf="error" class="error">{{ error }}</div>
+
+<!-- Nurse Cards -->
+<div *ngIf="!loading && nurses.length" class="nurse-card-grid">
+  <div class="nurse-card" *ngFor="let nurse of nurses">
+    <img [src]="nurse.imageUrl" alt="Profile" class="nurse-avatar" />
+    <div class="nurse-info">
+      <h3>{{ nurse.name || nurse.fullName }}</h3>
+      <p><strong>Email:</strong> {{ nurse.email }}</p>
+      <p><strong>Phone:</strong> {{ nurse.phone }}</p>
+      <p><strong>Role:</strong> Nurse</p>
+    </div>
+  </div>
+</div>
+
+<!--  Empty State -->
+<div *ngIf="!loading && !nurses.length" class="empty-state">
+  No nurses found.
+</div>
+
+<!-- Modal Form -->
+<div class="modal-backdrop" *ngIf="showModal" (click)="closeModal()"></div>
+<div class="modal" *ngIf="showModal">
+<p *ngIf="showModal" style="color: red;">Modal is active</p>
+
+  yooooooooo
+  <form [formGroup]="form" (ngSubmit)="submit()" class="modal-form">
+    <h3>Create Nurse</h3>
+
+    <input formControlName="username" placeholder="Username" />
+    <input formControlName="email" placeholder="Email" />
+    <input formControlName="password" placeholder="Password" type="password" />
+    <select formControlName="roleId">
+      <option *ngFor="let role of roles" [value]="role.roleId">{{ role.roleName }}</option>
+    </select>
+    <input formControlName="name" placeholder="Full Name" />
+    <input formControlName="specialty" placeholder="Specialty" />
+    <input formControlName="phone" placeholder="Phone" />
+    <input type="file" (change)="onFileSelected($event)" />
+
+    <div class="modal-actions">
+      <button type="submit" class="btn btn-primary" [disabled]="loading">
+        <span *ngIf="!loading">Create Nurse</span>
+        <span *ngIf="loading">
+          <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+          Saving...
+        </span>
+      </button>
+      <button type="button" class="btn btn-secondary" (click)="showModal = false">Cancel</button>
+    </div>
+  </form>
+</div>
+
+<!--  Toast Message -->
+<div class="toast-message" *ngIf="showToast">
+  {{ toastMessage }}
+</div>

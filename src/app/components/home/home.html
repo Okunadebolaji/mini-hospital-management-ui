@@ -1,0 +1,202 @@
+<!-- 🌟 Hero Section -->
+<section class="text-center py-5 bg-light">
+  <h1 class="display-4 fw-bold">Welcome to Okunade Medical Center</h1>
+  <p class="lead text-muted">Compassion. Excellence. Innovation.</p>
+  <!-- <a routerLink="/auth/login" class="btn btn-primary btn-lg mt-3">Book Appointment</a> -->
+</section>
+
+<!-- 🏥 Services Grid -->
+<section class="container py-5">
+  <div class="row text-center">
+    <div class="col-md-4 mb-4">
+      <i class="bi bi-hospital fs-1 text-primary"></i>
+      <h5>Admissions</h5>
+      <p>Quick and easy patient onboarding.</p>
+    </div>
+    <div class="col-md-4 mb-4">
+      <i class="bi bi-heart-pulse fs-1 text-danger"></i>
+      <h5>Emergency</h5>
+      <p>24/7 emergency response units.</p>
+    </div>
+    <div class="col-md-4 mb-4">
+      <i class="bi bi-capsule fs-1 text-success"></i>
+      <h5>Pharmacy</h5>
+      <p>On-site and online prescriptions.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 👨‍⚕️ Meet Our Specialists -->
+<section class="container py-5">
+  <div class="text-center mb-4">
+    <h3 class="fw-bold">Meet Our Specialists</h3>
+    <p class="text-muted">Our team of experts is here to provide compassionate and cutting-edge care.</p>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4 mb-4" *ngFor="let doctor of doctors | slice:0:6">
+      <div class="card shadow-sm border-0 h-100 text-center">
+        <img *ngIf="doctor.profileImageUrl"
+             [src]="doctor.profileImageUrl"
+             alt="{{ doctor.name }} profile"
+             class="card-img-top rounded-top specialist-img">
+        <div class="card-body">
+          <h5 class="card-title fw-bold">{{ doctor.name }}</h5>
+          <p class="card-text text-muted">{{ doctor.specialty }}</p>
+          <a [href]="'tel:' + doctor.phone" class="btn btn-outline-primary btn-sm">Contact</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 💬 Testimonials Carousel -->
+<section class="bg-light py-5">
+  <div class="container">
+    <h3 class="text-center mb-4">What Our Patients Say</h3>
+
+    <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item" *ngFor="let testimonial of testimonials; let i = index" [class.active]="i === 0">
+          <div class="text-center px-4 py-5">
+            <p class="fst-italic fs-5">“{{ testimonial.quote }}”</p>
+            <h6 class="fw-bold mt-3">{{ testimonial.name }}</h6>
+            <p class="text-muted small">{{ testimonial.date }}</p>
+          </div>
+        </div>
+      </div>
+
+      <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- 📝 Patient Quick Registration -->
+<section class="container py-5">
+  <div class="row align-items-stretch">
+<div class="col-md-6 mb-4 mb-md-0 registration-image">
+  <img src="assets/Images/pexels-shvetsa-4226123.jpg" alt="Doctor">
+</div>
+
+
+    <div class="col-md-6">
+      <h3 class="fw-bold mb-4">Quick Patient Registration</h3>
+   <form (ngSubmit)="registerPatient()" #patientForm="ngForm" class="p-4 border rounded bg-light">
+
+  <!-- 🔐 Account Info -->
+  <div class="mb-3">
+    <label class="form-label">Username</label>
+    <input type="text" class="form-control" required [(ngModel)]="patient.username" name="username">
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Password</label>
+    <input type="password" class="form-control" required [(ngModel)]="patient.password" name="password">
+  </div>
+
+  <!-- 👤 Basic Patient Info -->
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <label class="form-label">First Name</label>
+      <input type="text" class="form-control" required [(ngModel)]="patient.firstName" name="firstName">
+    </div>
+    <div class="col-md-6 mb-3">
+      <label class="form-label">Last Name</label>
+      <input type="text" class="form-control" required [(ngModel)]="patient.lastName" name="lastName">
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Date of Birth</label>
+    <input type="date" class="form-control" required [(ngModel)]="patient.dateOfBirth" name="dateOfBirth">
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Email</label>
+    <input type="email" class="form-control" required [(ngModel)]="patient.email" name="email">
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Phone Number</label>
+    <input type="tel" class="form-control" required [(ngModel)]="patient.phoneNumber" name="phoneNumber">
+  </div>
+
+  <!-- 🚀 Submit -->
+  <button type="submit" class="btn btn-primary w-100" [disabled]="isSubmitting">
+    {{ isSubmitting ? 'Registering...' : 'Register & Continue' }}
+  </button>
+</form>
+
+
+    </div>
+  </div>
+</section>
+
+
+<!-- 🖼️ Facility Gallery -->
+<section class="container py-5">
+  <h3 class="text-center mb-4">Our Facility Gallery</h3>
+  <div class="row">
+    <div class="col-md-4 mb-3" *ngFor="let image of galleryImages">
+      <img [src]="image" class="img-fluid rounded shadow-sm" alt="Facility image">
+    </div>
+  </div>
+</section>
+
+
+
+<!-- 📞 Footer -->
+<footer class="bg-light text-dark pt-5 pb-3 border-top shadow-sm">
+  <div class="container">
+    <div class="row text-start">
+      <!-- Contact Info -->
+      <div class="col-md-4 mb-4">
+        <h5 class="text-uppercase fw-bold mb-3"><i class="bi bi-telephone-fill me-2 text-primary"></i>Contact Info</h5>
+        <p class="mb-1">Okunade Medical Center</p>
+        <p class="mb-1"><i class="bi bi-phone me-2"></i><strong>Phone:</strong> +234 800 123 4567</p>
+        <p><i class="bi bi-envelope me-2"></i><strong>Email:</strong> info@okunademedical.com</p>
+      </div>
+
+      <!-- Latest News -->
+      <div class="col-md-4 mb-4">
+        <h5 class="text-uppercase fw-bold mb-3"><i class="bi bi-newspaper me-2 text-success"></i>Latest News</h5>
+        <ul class="list-unstyled">
+          <li class="mb-3">
+            <strong>Amazing Technology</strong><br>
+            <small class="text-muted">March 08, 2025</small>
+          </li>
+          <li>
+            <strong>New Healing Process</strong><br>
+            <small class="text-muted">February 20, 2025</small>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Opening Hours -->
+      <div class="col-md-4 mb-4">
+        <h5 class="text-uppercase fw-bold mb-3"><i class="bi bi-clock-fill me-2 text-warning"></i>Opening Hours</h5>
+        <ul class="list-unstyled">
+          <li><strong>Mon - Fri:</strong> 06:00 AM - 10:00 PM</li>
+          <li><strong>Saturday:</strong> 09:00 AM - 08:00 PM</li>
+          <li><strong>Sunday:</strong> Closed</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="pt-3 mt-3 text-center small text-muted border-top">
+      <p class="mb-1">&copy; 2025 Okunade Medical Center | Design: SENSEII</p>
+      <a routerLink="/departments" class="text-decoration-none me-3">Departments</a>
+      <a routerLink="/insurance" class="text-decoration-none me-3">Insurance Policy</a>
+      <a routerLink="/careers" class="text-decoration-none">Careers</a>
+    </div>
+  </div>
+</footer>
+
+
+

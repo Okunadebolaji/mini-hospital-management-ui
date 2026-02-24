@@ -1,0 +1,105 @@
+<div class="container mt-4" [class.dark]="isDarkMode" *ngIf="!loading && !error; else loadingOrError">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+      <button class="btn btn-outline-success" (click)="toggleDarkMode()">
+        {{ isDarkMode ? '☀️ Light Mode' : '🌙 Dark Mode' }}
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="assignments.length > 0; else noPatients">
+    <div class="card p-4 shadow-sm mb-4 profile-card">
+      <div class="d-flex align-items-center mb-4">
+        <img
+          [src]="nurseImageUrl"
+          alt="Nurse Profile"
+          class="rounded-circle me-4"
+          width="auto"
+          height="120"
+        />
+
+        <div>
+          <h2 class="mb-1">{{ assignments[0].nurse.name }}</h2>
+          <p class="text-muted mb-2">{{ assignments[0].nurse.specialty }}</p>
+          <div class="text-success">
+            <p class="mb-1">
+              <i class="bi bi-telephone-fill text-primary me-2"></i>
+              {{ assignments[0].nurse.phone }}
+            </p>
+            <p class="mb-0">
+              <i class="bi bi-envelope-fill text-primary me-2"></i>
+              {{ assignments[0].nurse.email }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row text-center mb-4">
+      <div class="col-md-4 mb-3">
+        <div class="stat-card shadow-sm p-3 rounded bg-mint">
+          <h3>{{ assignments.length }}</h3>
+          <p>Total Patients Assigned</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <div class="stat-card shadow-sm p-3 rounded bg-mint">
+          <h3>{{ mostCommonReason }}</h3>
+          <p>Most Common Reason</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <div class="stat-card shadow-sm p-3 rounded bg-mint">
+          <h3>{{ mostUsedRoom }}</h3>
+          <p>Most Used Room</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm p-4">
+      <h4>Assigned Patients</h4>
+      <table class="table table-hover mt-3">
+        <thead class="table-success">
+          <tr>
+            <th>#</th>
+            <th>Patient</th>
+            <th>Gender</th>
+            <th>Blood Type</th>
+            <th>Room</th>
+            <th>Reason</th>
+            <th>Admission Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let a of assignments; index as i">
+            <td>{{ i + 1 }}</td>
+            <td>{{ a.patient.firstName }} {{ a.patient.lastName }}</td>
+            <td>{{ a.patient.gender }}</td>
+            <td>{{ a.patient.bloodType }}</td>
+            <td>{{ a.admission.roomNumber }}</td>
+            <td>{{ a.admission.reasonForAdmission }}</td>
+            <td>{{ a.admission.admissionDate | date: 'medium' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <ng-template #noPatients>
+    <div class="alert alert-info text-center mt-5">
+      <strong>No assigned patients for this nurse.</strong>
+    </div>
+  </ng-template>
+</div>
+
+<ng-template #loadingOrError>
+  <div *ngIf="loading" class="text-center my-5">
+    <div class="spinner-border text-success" role="status"></div>
+    <p class="mt-2 text-success">Loading Nurse Dashboard...</p>
+  </div>
+  <div *ngIf="error && !loading" class="alert alert-danger text-center">
+    {{ error }}
+  </div>
+</ng-template>

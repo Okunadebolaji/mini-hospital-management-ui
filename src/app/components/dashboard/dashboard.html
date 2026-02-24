@@ -1,0 +1,36 @@
+<div class="dashboard-container">
+  <!-- Row 1: Metrics + Success Rate Chart -->
+  <div class="row mb-4">
+    <div class="col-12">
+<app-dashboard-metrics
+  [metrics]="metrics"
+  [approvals]="approvals">
+</app-dashboard-metrics>
+
+      <app-dashboard-charts [successRate]="metrics?.successRate"></app-dashboard-charts>
+    </div>
+  </div>
+
+  <!-- Row 2: Next Patient + Approval Requests -->
+  <div class="row">
+    <div class="col-lg-6 mb-6">
+      <!-- <app-dashboard-patients [nextPatient]="nextPatient"></app-dashboard-patients> -->
+    </div>
+
+
+  </div>
+
+  <!-- Row 3: Appointments + Treatments -->
+  <div class="row">
+    <div class="col-lg-8 mb-4">
+     <app-dashboard-appointments
+  [appointments]="appointments"
+  [todaysAppointments]="todaysAppointments" >
+</app-dashboard-appointments>
+
+    </div>
+    <div class="col-lg-4 mb-4">
+      <app-dashboard-treatments [treatments]="treatments"></app-dashboard-treatments>
+    </div>
+  </div>
+</div>

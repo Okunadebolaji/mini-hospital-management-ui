@@ -1,0 +1,221 @@
+/* 🎨 Theme Variables */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #212529;
+  --card-bg: #f9fdfb;
+  --mint: #20c997;
+  --mint-light: #e8fff4;
+  --border-color: #20c99740;
+  --table-header-bg: #20c997;
+  --table-header-text: #ffffff;
+}
+
+dark-mode {
+  --bg-color: #1e1e1e;         /* Charcoal dark background */
+  --text-color: #f1f3f5;       /* Softer white */
+  --card-bg: #2a2a2a;          /* Dark gray for cards */
+  --mint: #20c997;
+  --mint-light: #234b42;       /* Muted mint highlight */
+  --border-color: #20c99750;
+}
+
+body,
+.container {
+  background-color: var(--bg-color) !important;
+  color: var(--text-color) !important;
+}
+
+.container {
+  max-width: 900px;
+}
+
+/* 👩‍⚕️ Profile Card */
+.profile-card {
+  background: linear-gradient(90deg, var(--mint-light), transparent);
+  border-left: 5px solid var(--mint);
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  border-radius: 12px;
+  transition: background 0.3s ease;
+}
+
+.profile-card img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid var(--mint);
+  object-fit: cover;
+  box-shadow: 0 0 10px rgba(32, 201, 151, 0.4);
+}
+
+.profile-card h2 {
+  color: var(--text-color);
+  margin-bottom: 0.25rem;
+}
+
+.profile-card p {
+  color: var(--text-color);
+  margin: 0.25rem 0;
+}
+
+/* 💫 Stats Cards */
+.stats-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 1.5rem 0;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.stat-card {
+  background-color: var(--mint-light);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  text-align: center;
+  padding: 1rem 1.5rem;
+  flex: 1;
+  min-width: 180px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(32, 201, 151, 0.3);
+}
+
+.stat-card h3 {
+  color: var(--mint);
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.stat-card p {
+  color: var(--text-color);
+  opacity: 0.8;
+  font-size: 0.9rem;
+}
+
+/* 📊 Table Styling */
+.table {
+  border-collapse: collapse;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: var(--card-bg);
+}
+
+.table th {
+  background-color: var(--table-header-bg);
+  color: var(--table-header-text);
+  padding: 12px;
+  text-align: left;
+}
+
+.table td {
+  padding: 12px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.table-hover tbody tr:hover {
+  background-color: var(--mint-light);
+  color: var(--text-color);
+  transition: 0.2s;
+}
+
+/* ☀️🌙 Dark Mode Overrides */
+.dark-mode .profile-card {
+  background: linear-gradient(90deg, var(--mint-light), #0d0d0d);
+}
+
+.dark-mode .stat-card {
+  background-color: #1c1c1c;
+}
+
+.dark-mode .table th p{
+  background-color: var(--mint);
+  color: #fff;
+}
+
+.dark-mode .table-hover tbody tr:hover {
+  background-color: #153d35;
+}
+
+/* 🪄 Buttons */
+.btn-outline-success {
+  color: var(--mint);
+  border-color: var(--mint);
+}
+
+.btn-outline-success:hover {
+  background-color: var(--mint);
+  color: #fff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+:host-context(.dark-mode) {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+:host-context(.dark-mode) .card {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+:host-context(.dark-mode) h3,
+:host-context(.dark-mode) h4,
+:host-context(.dark-mode) h5 {
+  color: var(--accent-color);
+}
+/* === DARK MODE FIXES === */
+:host-context(.dark-mode) table {
+  color: var(--text-color) !important;
+  background-color: var(--card-bg) !important;
+  border-color: var(--border-color) !important;
+}
+
+:host-context(.dark-mode) th {
+  color: var(--accent-color) !important;
+  background-color: var(--stat-bg) !important;
+  border-bottom: 1px solid var(--border-color) !important;
+}
+
+:host-context(.dark-mode) td {
+  color: var(--text-color) !important;
+  background-color: transparent !important;
+}
+
+:host-context(.dark-mode) .table-hover tbody tr:hover {
+  background-color: var(--table-hover) !important;
+}
+
+:host-context(.dark-mode) .card,
+:host-context(.dark-mode) .profile-card,
+:host-context(.dark-mode) .stat-card {
+  background-color: var(--card-bg) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-color) !important;
+}
+
+:host-context(.dark-mode) .nurse-info span,
+:host-context(.dark-mode) .nurse-info p {
+  color: var(--text-color) !important;
+}

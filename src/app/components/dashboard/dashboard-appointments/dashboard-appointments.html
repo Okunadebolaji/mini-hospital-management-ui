@@ -1,0 +1,88 @@
+<!-- Add Appointment Button -->
+<!-- <div class="d-flex justify-content-end mb-3">
+  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#appointmentModal">
+    + New Appointment
+  </button>
+</div> -->
+
+<!-- Appointment Modal -->
+<div class="modal fade" id="appointmentModal" tabindex="-1" aria-labelledby="appointmentModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form [formGroup]="appointmentForm" (ngSubmit)="onSubmit()">
+        <div class="modal-header">
+          <h5 class="modal-title" id="appointmentModalLabel">Create Appointment</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Patient Name</label>
+            <input type="text" class="form-control" formControlName="patientName">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Type</label>
+            <input type="text" class="form-control" formControlName="type">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Doctor</label>
+            <input type="text" class="form-control" formControlName="doctorName">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Date</label>
+            <input type="datetime-local" class="form-control" formControlName="appointmentDate">
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary" [disabled]="appointmentForm.invalid || loading">
+            {{ loading ? 'Saving...' : 'Save Appointment' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Today's Appointments -->
+<div *ngIf="todaysAppointments && todaysAppointments.length > 0" class="card border-0 shadow-sm mb-4">
+  <div class="card-body">
+    <div *ngFor="let slot of todaysAppointments" class="mb-3">
+      <p><strong>Patient:</strong> {{ slot.patientName }}</p>
+      <p><strong>Type:</strong> {{ slot.type }}</p>
+      <p><strong>Doctor:</strong> {{ slot.doctorName }}</p>
+      <p><strong>Time:</strong> {{ slot.appointmentDate | date:'shortTime' }}</p>
+    </div>
+  </div>
+</div>
+
+<!-- Upcoming Appointments -->
+<div *ngIf="appointments && appointments.length > 0; else noAppointments" class="card border-0 shadow-sm mb-4">
+  <div class="card-header bg-white d-flex justify-content-between align-items-center">
+    <h5 class="mb-0">Upcoming Appointments</h5>
+    <div>
+      <!-- <button class="btn btn-outline-success btn-sm me-2" (click)="checkUpcoming()">✔ Check</button> -->
+      <button class="btn btn-outline-primary btn-sm" (click)="nextUpcoming()">Next</button>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="mb-3">
+      <p><strong>Patient:</strong> {{ appointments[currentUpcomingIndex]?.patientName }}</p>
+      <p><strong>Type:</strong> {{ appointments[currentUpcomingIndex]?.type }}</p>
+      <p><strong>Doctor:</strong> {{ appointments[currentUpcomingIndex]?.doctorName }}</p>
+      <p><strong>Date:</strong> {{ appointments[currentUpcomingIndex]?.appointmentDate | date:'mediumDate' }}</p>
+    </div>
+  </div>
+</div>
+
+<ng-template #noAppointments>
+  <div class="card border-0 shadow-sm mb-4">
+    <div class="card-header bg-white">
+      <h5 class="mb-0">Upcoming Appointments</h5>
+    </div>
+    <div class="card-body text-muted">
+      <p>No upcoming appointments found.</p>
+    </div>
+  </div>
+</ng-template>

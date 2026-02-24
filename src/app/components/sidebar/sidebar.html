@@ -1,0 +1,90 @@
+
+
+<!-- Sidebar Container -->
+<div class="sidebar" [ngClass]="{ 'collapsed': collapsed }">
+  <div class="sidebar-header px-3 py-2 border-bottom bg-light">
+
+    <h5 class="mb-0">Medical Center</h5>
+
+  </div>
+
+  <nav class="sidebar-inner px-3 pt-3">
+    <ul class="nav flex-column">
+      <li class="nav-item">
+          <a routerLink="/admin/dashboard" routerLinkActive="active" class="nav-link">
+    <i class="bi bi-speedometer2"></i> Dashboard
+  </a>
+      </li>
+      <li class="nav-item">
+  <a routerLink="/admin/appointments" routerLinkActive="active" class="nav-link">
+    <i class="bi bi-calendar-check me-2"></i> Appointments
+  </a>
+</li>
+<li class="nav-item">
+  <a routerLink="/admin/patients" routerLinkActive="active" class="nav-link">
+    <i class="bi bi-person-lines-fill me-2"></i> Patients
+  </a>
+</li>
+  <li class="nav-item">
+        <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#staffMenu" role="button" aria-expanded="false" aria-controls="staffMenu">
+          <span><i class="bi bi-people-fill me-2"></i> Staffs</span>
+          <i class="bi bi-caret-down"></i>
+        </a>
+        <div class="collapse" id="staffMenu">
+          <ul class="nav flex-column ms-3">
+
+            <!-- Medical Staffs -->
+            <li class="nav-item">
+              <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#medicalStaffs" role="button" aria-expanded="false" aria-controls="medicalStaffs">
+                <span><i class="bi bi-hospital me-2"></i> Medical Staffs</span>
+                <i class="bi bi-caret-down"></i>
+              </a>
+              <div class="collapse" id="medicalStaffs">
+                <ul class="nav flex-column ms-3">
+                  <li class="nav-item">
+                    <a routerLink="/admin/doctors" routerLinkActive="active" class="nav-link">
+                      <i class="bi bi-person-badge me-2"></i> Doctors
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a routerLink="/admin/nurses" routerLinkActive="active" class="nav-link">
+                      <i class="bi bi-person-badge me-2"></i> Nurses
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <!-- Non-Medical Staffs -->
+            <li class="nav-item">
+              <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#nonMedicalStaffs" role="button" aria-expanded="false" aria-controls="nonMedicalStaffs">
+                <span><i class="bi bi-briefcase-fill me-2"></i> Non-Medical Staffs</span>
+                <i class="bi bi-caret-down"></i>
+              </a>
+              <div class="collapse" id="nonMedicalStaffs">
+                <ul class="nav flex-column ms-3">
+                  <!-- <li class="nav-item">
+                    <a routerLink="/admin/admins" routerLinkActive="active" class="nav-link">
+                      <i class="bi bi-person-workspace me-2"></i> Admins
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a routerLink="/admin/accountants" routerLinkActive="active" class="nav-link">
+                      <i class="bi bi-cash-stack me-2"></i> Accountants
+                    </a>
+                  </li> -->
+                  <!-- Add more non-medical staff links here -->
+                </ul>
+              </div>
+            </li>
+
+          </ul>
+        </div>
+      </li>
+
+
+
+
+    </ul>
+  </nav>
+</div>

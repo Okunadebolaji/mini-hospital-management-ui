@@ -1,0 +1,40 @@
+/* Center the form on the page */
+.container {
+  max-width: 500px;
+  margin: auto;
+  padding: 2rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Headline styling */
+h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #343a40;
+}
+
+/* Input spacing */
+.form-control,
+.form-select {
+  margin-bottom: 1rem;
+}
+
+/* Button styling */
+button[type="submit"] {
+  width: 100%;
+  padding: 0.75rem;
+}
+
+/* Error alert */
+.alert {
+  margin-top: 1rem;
+}
+
+/* Responsive tweaks */
+@media (max-width: 576px) {
+  .container {
+    padding: 1rem;
+  }
+}

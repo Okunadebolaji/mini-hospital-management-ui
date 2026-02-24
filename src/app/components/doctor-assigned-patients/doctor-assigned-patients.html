@@ -1,0 +1,25 @@
+<p>doctor-assigned-patients works!</p>
+<div *ngIf="loading">Loading patients...</div>
+
+<table *ngIf="!loading && patients.length" class="table table-striped">
+  <thead>
+    <tr>
+      <th>Patient</th>
+      <th>Reason</th>
+      <th>Room</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let p of patients">
+      <td>{{ p.patientName }}</td>
+      <td>{{ p.reason }}</td>
+      <td>{{ p.room }}</td>
+      <td>{{ p.date | date }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<p *ngIf="!loading && !patients.length" class="text-muted">
+  No assigned patients found.
+</p>

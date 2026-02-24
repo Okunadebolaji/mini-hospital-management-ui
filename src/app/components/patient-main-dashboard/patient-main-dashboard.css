@@ -1,0 +1,14 @@
+h2 {
+  font-weight: 600;
+}
+
+.table th {
+  background-color: #7c42e7;
+  font-weight: 600;
+  color: #e0eef7;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #7c42e7;
+;
+}

@@ -1,1 +1,45 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #212529;
+  --card-bg: #f9f9f9;
+  --accent-color: #0d6efd;
+  --stat-bg: #e0f7fa;
+  --table-hover: #f1f1f1;
+  --border-color: #dee2e6;
+}
+
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body.dark-mode {
+  --bg-color: #1e1f25; /* Slightly lighter than #0f1117 */
+  --text-color: #e9ecef;
+  --card-bg: #2a2d35;
+  --accent-color: #4dabf7;
+  --stat-bg: #32343d;
+  --table-hover: #383b44;
+  --border-color: #4b4e58;
+
+  /* Override Bootstrap variables */
+  --bs-body-bg: var(--bg-color);
+  --bs-body-color: var(--text-color);
+}
+
+body {
+  background-color: var(--bg-color) !important;
+  color: var(--text-color) !important;
+}
+
+.sidebar .nav-link.active {
+  background-color: #0d6efd;
+  color: #fff;
+  font-weight: bold;
+}
+
+.sidebar .nav-link:hover {
+  background-color: #198754;
+  color: #fff;
+}

@@ -1,0 +1,205 @@
+<!-- Toast Notification -->
+<div *ngIf="showToast" class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div class="toast show bg-success text-white">
+    <div class="toast-body">
+      {{ toastMessage }}
+    </div>
+  </div>
+</div>
+
+
+<div class="d-flex justify-content-between align-items-center mb-3 px-3 pt-3">
+  <div class="select-entries">
+    Show
+    <select class="form-select d-inline-block w-auto ms-2" [(ngModel)]="entriesToShow" (change)="currentPage = 1">
+      <option *ngFor="let count of [5, 10, 25, 50]" [value]="count">{{ count }}</option>
+    </select>
+    entries
+  </div>
+  <div class="search-bar">
+    <input type="text" class="form-control" placeholder="Search by patient name..." [(ngModel)]="searchTerm" (input)="currentPage = 1">
+  </div>
+</div>
+
+<!-- Tabs -->
+<ul class="nav nav-tabs mb-3">
+  <li class="nav-item">
+    <button class="nav-link" [class.active]="activeTab === 'all'" (click)="activeTab = 'all'">All</button>
+  </li>
+  <li class="nav-item">
+    <button class="nav-link" [class.active]="activeTab === 'pending'" (click)="activeTab = 'pending'">Pending</button>
+  </li>
+  <li class="nav-item">
+    <button class="nav-link" [class.active]="activeTab === 'confirmed'" (click)="activeTab = 'confirmed'">Completed/Confirmed</button>
+  </li>
+</ul>
+
+<!-- Date Filters -->
+<div class="row mb-3 px-3">
+  <div class="col-md-3">
+    <label>From</label>
+    <input type="date" class="form-control" [(ngModel)]="dateFilterFrom" (change)="currentPage = 1">
+  </div>
+  <div class="col-md-3">
+    <label>To</label>
+    <input type="date" class="form-control" [(ngModel)]="dateFilterTo" (change)="currentPage = 1">
+  </div>
+</div>
+
+<!-- Add Appointment Button -->
+<div class="d-flex justify-content-end mb-3" *ngIf="showNewButton">
+  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newAppointmentModal">
+    + New Appointment
+  </button>
+</div>
+
+<!-- Appointment Table -->
+<div class="card border-0 shadow-sm mb-4">
+  <div class="card-header bg-white">
+    <h5 class="mb-0">Appointments</h5>
+  </div>
+  <div class="card-body">
+    <div *ngIf="loading" class="text-center my-4">
+      <p>Loading appointments...</p>
+      <div class="spinner-border text-primary" role="status"></div>
+    </div>
+
+    <table *ngIf="!loading" class="table table-hover align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>Patient</th>
+          <th>Doctor</th>
+          <th>Date</th>
+          <th>Type</th>
+          <th>Diagnosis</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let appt of paginatedAppointments">
+          <td>{{ appt.patientName }}</td>
+          <td>{{ appt.doctorName }}</td>
+          <td>{{ appt.appointmentDate | date:'short' }}</td>
+          <td>{{ appt.type }}</td>
+          <td>{{ appt.diagnosis }}</td>
+          <td>
+            <span class="badge" [ngClass]="getStatusClass(appt.status)">
+              {{ appt.status }}
+            </span>
+          </td>
+          <td>
+            <button class="btn btn-sm btn-primary" (click)="openAppointmentModal(appt)">View</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Pagination Controls -->
+    <nav *ngIf="totalPages > 1" class="mt-3">
+      <ul class="pagination justify-content-center">
+        <li class="page-item" [class.disabled]="currentPage === 1">
+          <button class="page-link" (click)="changePage(currentPage - 1)">Previous</button>
+        </li>
+        <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index"
+            [class.active]="currentPage === i + 1">
+          <button class="page-link" (click)="changePage(i + 1)">{{ i + 1 }}</button>
+        </li>
+        <li class="page-item" [class.disabled]="currentPage === totalPages">
+          <button class="page-link" (click)="changePage(currentPage + 1)">Next</button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+<!-- Modal 1: New Appointment Form -->
+<div class="modal fade" id="newAppointmentModal" tabindex="-1" aria-labelledby="newAppointmentModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form (ngSubmit)="submitAppointment()" #appointmentForm="ngForm">
+        <div class="modal-header">
+          <h5 class="modal-title" id="newAppointmentModalLabel">Create Appointment</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Doctor</label>
+            <select class="form-select" [(ngModel)]="newAppointment.doctorId" name="doctorId" required>
+              <option [ngValue]="null" disabled selected>Select a doctor</option>
+              <option *ngFor="let doc of doctors" [value]="doc.doctorId">{{ doc.name }}</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Patient</label>
+            <select class="form-select" [(ngModel)]="newAppointment.patientId" name="patientId" required>
+              <option [ngValue]="null" disabled selected>Select a patient</option>
+              <option *ngFor="let patient of patients" [value]="patient.id">
+                {{ patient.firstName }} {{ patient.lastName }}
+              </option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Appointment Date</label>
+            <input type="datetime-local" class="form-control" [(ngModel)]="newAppointment.appointmentDate" name="appointmentDate" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Type</label>
+            <input type="text" class="form-control" [(ngModel)]="newAppointment.type" name="type" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Fee</label>
+            <input type="number" class="form-control" [(ngModel)]="newAppointment.fee" name="fee">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Notes</label>
+            <textarea class="form-control" [(ngModel)]="newAppointment.notes" name="notes"></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary" [disabled]="loading">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+            {{ loading ? 'Saving...' : 'Save Appointment' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal 2: Appointment Details -->
+<div class="modal fade show d-block" *ngIf="showModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Appointment Details</h5>
+        <button type="button" class="btn-close" (click)="closeModal()"></button>
+      </div>
+      <div class="modal-body" *ngIf="selectedAppointment">
+        <p><strong>Doctor:</strong> {{ selectedAppointment.doctorName }}</p>
+        <p><strong>Patient:</strong> {{ selectedAppointment.patientName }}</p>
+        <p><strong>Date:</strong> {{ selectedAppointment.appointmentDate | date:'full' }}</p>
+        <p><strong>Type:</strong> {{ selectedAppointment.type }}</p>
+        <p><strong>Status:</strong> {{ selectedAppointment.status }}</p>
+        <p><strong>Notes:</strong> {{ selectedAppointment.diagnosis || selectedAppointment.notes }}</p>
+        <p class="text-primary"><strong>Countdown:</strong> {{ getCountdown(selectedAppointment.appointmentDate) }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Toast Notification -->
+<div *ngIf="showToast" class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div class="toast show bg-success text-white">
+    <div class="toast-body">
+      {{ toastMessage }}
+    </div>
+  </div>
+</div>
