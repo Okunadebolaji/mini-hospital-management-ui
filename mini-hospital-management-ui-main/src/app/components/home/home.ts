@@ -73,6 +73,7 @@ export class HomeComponent implements OnInit {
         this.doctors = data;
 
         this.doctors.forEach(d => {
+          d.profileImageUrl = 'assets/Images/avatar-1577909_1280.png';
           this.doctorAdmissionsService.getDoctorProfileImage(d.doctorId).subscribe({
             next: (imgBlob: Blob) => {
               const objectURL = URL.createObjectURL(imgBlob);
