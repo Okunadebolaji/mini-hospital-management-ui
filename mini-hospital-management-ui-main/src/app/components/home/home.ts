@@ -72,17 +72,19 @@ export class HomeComponent implements OnInit {
       next: (data:any) => {
         this.doctors = data;
 
-        this.doctors.forEach(d => {
+        this.doctors.forEach((d, index) => {
           d.profileImageUrl = 'assets/Images/avatar-1577909_1280.png';
-          this.doctorAdmissionsService.getDoctorProfileImage(d.doctorId).subscribe({
-            next: (imgBlob: Blob) => {
-              const objectURL = URL.createObjectURL(imgBlob);
-              d.profileImageUrl = objectURL;
-            },
-            error: () => {
-              d.profileImageUrl = 'assets/Images/avatar-1577909_1280.png';
-            }
-          });
+          setTimeout(() => {
+            this.doctorAdmissionsService.getDoctorProfileImage(d.doctorId).subscribe({
+              next: (imgBlob: Blob) => {
+                const objectURL = URL.createObjectURL(imgBlob);
+                d.profileImageUrl = objectURL;
+              },
+              error: () => {
+                d.profileImageUrl = 'assets/Images/avatar-1577909_1280.png';
+              }
+            });
+          }, index * 200);
         });
       },
       error: (err:any) => {
