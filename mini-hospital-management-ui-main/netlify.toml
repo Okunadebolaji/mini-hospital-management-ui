@@ -1,4 +1,4 @@
 [build]
   base = "mini-hospital-management-ui-main"
   command = "ng build --configuration production"
-  publish = "dist/mini-hospital-management-ui/browser"
+  publish = "dist/hospital-management-ui/browser"
