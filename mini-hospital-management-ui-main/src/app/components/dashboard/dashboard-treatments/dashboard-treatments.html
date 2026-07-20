@@ -1,0 +1,33 @@
+<div *ngIf="treatments&& treatments.length > 0; else noTreatments" class="card border-0 shadow-sm mb-4">
+  <div class="card-header bg-white">
+    <h5 class="mb-0">Top Treatments</h5>
+  </div>
+  <div class="card-body">
+    <div *ngFor="let treatment of treatments" class="mb-3">
+      <div class="d-flex justify-content-between">
+        <span>{{ treatment.treatment }}</span>
+        <span>{{ treatment.count | number }}</span>
+      </div>
+      <div class="progress">
+     <div
+  class="progress-bar"
+  [ngClass]="getProgressColor(treatment.treatment)"
+  [style.width.%]="Math.min(treatment.count * 10, 100)"
+  role="progressbar">
+</div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #noTreatments>
+  <div class="card border-0 shadow-sm mb-4">
+    <div class="card-header bg-white">
+      <h5 class="mb-0">Top Treatments</h5>
+    </div>
+    <div class="card-body text-muted">
+      <p>No treatment data available.</p>
+    </div>
+  </div>
+</ng-template>

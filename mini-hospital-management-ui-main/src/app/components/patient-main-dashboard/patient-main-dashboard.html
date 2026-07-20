@@ -1,0 +1,59 @@
+<div *ngIf="patient">
+  <h2>Welcome, {{ patient.firstName }}!</h2>
+
+  <div class="card mt-3">
+    <div class="card-body">
+      <h5 class="card-title">Your Profile</h5>
+      <p><strong>Email:</strong> {{ patient.email }}</p>
+      <p><strong>Phone:</strong> {{ patient.phoneNumber }}</p>
+      <p><strong>Blood Type:</strong> {{ patient.bloodType }}</p>
+      <p><strong>Allergies:</strong> {{ patient.allergies }}</p>
+      <!-- <a routerLink="/patient" class="btn btn-outline-primary">Edit Profile</a> -->
+    </div>
+  </div>
+
+ <div class="container mt-4">
+
+  <!-- Tab Navigation -->
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link" [class.active]="activeTab === 'viewDoctors'" (click)="switchTab('viewDoctors')">View Pending Appointments</a>
+    </li>
+    <!-- <li class="nav-item">
+      <a class="nav-link" [class.active]="activeTab === 'bookAppointment'" (click)="switchTab('bookAppointment')">Book Appointment</a>
+    </li> -->
+    <li class="nav-item">
+      <a class="nav-link" [class.active]="activeTab === 'medicalHistory'" (click)="switchTab('medicalHistory')">Medical History</a>
+    </li>
+  </ul>
+
+  <!-- Tab Content -->
+  <div class="tab-content mt-4">
+    <div *ngIf="activeTab === 'viewDoctors'">
+      <!-- <app-doctor-dashboard></app-doctor-dashboard> -->
+       <h3>Coming sooon...</h3>
+
+    </div>
+
+    <div *ngIf="activeTab === 'bookAppointment'">
+     <div class="col-lg-8 mb-4">
+     <app-dashboard-appointments
+  [appointments]="appointments"
+  [todaysAppointments]="todaysAppointments">
+</app-dashboard-appointments>
+
+    </div>
+    </div>
+
+    <div *ngIf="activeTab === 'medicalHistory'">
+      <p>📜 Medical history will be displayed here.</p>
+
+      <h3>This Function would be coming soon......</h3>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="!patient">
+  <p>Loading dashboard...</p>
+</div>

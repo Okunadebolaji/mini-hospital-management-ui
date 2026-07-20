@@ -1,0 +1,195 @@
+<h1>Doctor Detail</h1>
+
+<div class="container mt-4" *ngIf="!loading && doctor">
+  <!-- Doctor Profile Card -->
+  <div class="row">
+    <div class="col-12">
+      <div class="doctor-profile-card d-flex align-items-center p-4 mb-4 shadow-sm rounded bg-white">
+        <img [src]="profileImgUrl" alt="Doctor photo" class="profile-img"/>
+
+        <div class="doctor-details ms-3">
+          <h1 class="doctor-name">{{ doctor.name }}</h1>
+          <h5 class="doctor-specialty text-muted">{{ doctor.specialty }}</h5>
+          <div class="contact-info">
+            <p class="mb-1">
+              <i class="bi bi-telephone-fill text-primary me-2"></i>{{ doctor.phone }}
+            </p>
+            <p class="mb-0">
+              <i class="bi bi-envelope-fill text-primary me-2"></i>{{ doctor.email }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS CARDS -->
+<div class="row stats-grid gx-3 gy-3 mb-5">
+  <div class="col-sm-6">
+    <div class="stat-box p-3 rounded shadow-sm text-center">
+      <h3>{{ totalAppointments }}</h3>
+      <p class="mb-0">Total Appointments</p>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="stat-box p-3 rounded shadow-sm text-center">
+      <h3>{{ mostCommonService }}</h3>
+      <p class="mb-0">Most Common Service</p>
+    </div>
+  </div>
+  <!-- <div class="col-sm-4">
+    <div class="stat-box p-3 rounded shadow-sm text-center">
+   <h3>{{ nextAppointmentValue }}</h3>
+
+      <p class="mb-0">Upcoming Appointment</p>
+    </div>
+  </div> -->
+</div>
+
+
+
+</div>
+
+
+
+<!-- Toast -->
+<!-- <div *ngIf="showToast" class="alert alert-success text-center" role="alert">
+  {{ toastMessage }}
+</div> -->
+
+<!-- Search + Date Filter -->
+<div class="container mb-4">
+  <h4>Appointments</h4>
+  <div class="row align-items-end">
+    <div class="col-md-4">
+      <label class="form-label">Search by patient name</label>
+      <input type="text" class="form-control" [(ngModel)]="searchTerm">
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">Filter by date</label>
+      <select class="form-select" [(ngModel)]="dateFilter">
+        <option value="">-- Select --</option>
+        <option value="today">Today</option>
+        <option value="yesterday">Yesterday</option>
+        <option value="custom">Custom</option>
+      </select>
+    </div>
+   <div class="col-md-3" *ngIf="dateFilter === 'custom'">
+  <label class="form-label">From</label>
+  <input type="date" class="form-control" [(ngModel)]="customDateFrom">
+</div>
+<div class="col-md-3" *ngIf="dateFilter === 'custom'">
+  <label class="form-label">To</label>
+  <input type="date" class="form-control" [(ngModel)]="customDateTo">
+</div>
+
+    <div class="col-md-2 d-flex gap-2">
+      <button class="btn btn-primary w-100" (click)="applyDateFilter()">Apply Filter</button>
+      <button class="btn btn-outline-secondary w-100" (click)="clearDateFilter()">Clear</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Appointment Tabs -->
+<div class="container mt-5">
+
+
+  <!-- Toast -->
+  <div *ngIf="showToast" class="alert alert-success text-center" role="alert">
+    {{ toastMessage }}
+  </div>
+
+  <!-- Search -->
+  <!-- <div class="mb-3">
+    <input type="text" class="form-control" placeholder="Search by patient name..." [(ngModel)]="searchTerm">
+  </div> -->
+
+  <!-- Tabs -->
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <button class="nav-link" [class.active]="activeTab === 'pending'" (click)="activeTab = 'pending'">Pending</button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link" [class.active]="activeTab === 'confirmed'" (click)="activeTab = 'confirmed'">Confirmed</button>
+    </li>
+  </ul>
+
+  <div class="tab-content mt-3">
+    <!-- Pending Appointments -->
+    <div class="tab-pane fade show active" *ngIf="activeTab === 'pending'">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Patient</th>
+            <th>Type</th>
+            <th>Date</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let appt of paginatedPendingAppointments">
+            <td>{{ appt.patientName }}</td>
+            <td>{{ appt.type }}</td>
+            <td>{{ appt.appointmentDate | date:'short' }}</td>
+            <td>
+              <button class="btn btn-success btn-sm" (click)="confirmAppointment(appt.appointmentId)">✔ Confirm</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Pagination -->
+      <nav *ngIf="totalPendingPages > 1">
+        <ul class="pagination justify-content-center">
+          <li class="page-item" [class.disabled]="pendingPage === 1">
+            <button class="page-link" (click)="changePage('pending', pendingPage - 1)">Previous</button>
+          </li>
+          <li class="page-item" *ngFor="let page of [].constructor(totalPendingPages); let i = index"
+              [class.active]="pendingPage === i + 1">
+            <button class="page-link" (click)="changePage('pending', i + 1)">{{ i + 1 }}</button>
+          </li>
+          <li class="page-item" [class.disabled]="pendingPage === totalPendingPages">
+            <button class="page-link" (click)="changePage('pending', pendingPage + 1)">Next</button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Confirmed Appointments -->
+    <div class="tab-pane fade show active" *ngIf="activeTab === 'confirmed'">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Patient</th>
+            <th>Type</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let appt of paginatedConfirmedAppointments">
+            <td>{{ appt.patientName }}</td>
+            <td>{{ appt.type }}</td>
+            <td>{{ appt.appointmentDate | date:'short' }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Pagination -->
+      <nav *ngIf="totalConfirmedPages > 1">
+        <ul class="pagination justify-content-center">
+          <li class="page-item" [class.disabled]="confirmedPage === 1">
+            <button class="page-link" (click)="changePage('confirmed', confirmedPage - 1)">Previous</button>
+          </li>
+          <li class="page-item" *ngFor="let page of [].constructor(totalConfirmedPages); let i = index"
+              [class.active]="confirmedPage === i + 1">
+            <button class="page-link" (click)="changePage('confirmed', i + 1)">{{ i + 1 }}</button>
+          </li>
+          <li class="page-item" [class.disabled]="confirmedPage === totalConfirmedPages">
+            <button class="page-link" (click)="changePage('confirmed', confirmedPage + 1)">Next</button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>

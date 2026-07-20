@@ -1,0 +1,123 @@
+:root {
+  --bg-color: #ffffff;
+  --text-color: #212529;
+  --card-bg: #f9f9f9;
+  --accent-color: #0d6efd;
+  --stat-bg: #e0f7fa;
+  --table-hover: #f1f1f1;
+  --border-color: #dee2e6;
+}
+
+body.dark-mode {
+  --bg-color: #0f1117;
+  --text-color: #e3e3e3;
+  --card-bg: #1a1c23;
+  --accent-color: #add6f8;
+  --stat-bg: #23262e;
+  --table-hover: #2a2d36;
+  --border-color: #3a3d45;
+}
+
+body {
+  background: var(--bg-color);
+  color: var(--text-color);
+  transition: background 0.25s, color 0.25s;
+}
+
+/* Profile Card */
+.doctor-profile-card {
+  background: var(--card-bg);
+  border-left: 6px solid var(--accent-color);
+  transition: background 0.25s, border-color 0.25s;
+}
+
+/* Profile Image */
+.profile-img {
+  width: 120px;           /* Adjust width as needed */
+  height: 120px;          /* Keep it square */
+  object-fit: cover;      /* Ensures the image fills the box without distortion */
+  border-radius: 50%;     /* Makes it circular */
+  border: 2px solid var(--border-color); /* Optional: adds a subtle border */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Optional: adds depth */
+}
+
+
+/* Stats */
+.stat-box {
+  background: var(--stat-bg);
+  color: var(--text-color);
+  transition: background 0.25s, color 0.25s;
+}
+
+.stat-box h3 {
+  color: var(--accent-color);
+}
+
+/* Table */
+.admissions-table {
+  background: var(--card-bg);
+  color: var(--text-color);
+}
+
+.admissions-table tr:hover {
+  background: var(--table-hover);
+}
+
+.doctor-profile-card {
+  background-color: #f8f9fa;
+  border-left: 5px solid #0d6efd;
+}
+
+.profile-img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #0d6efd;
+}
+
+.doctor-name {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.contact-info i {
+  font-size: 1.2rem;
+}
+
+.stat-box {
+  background-color: #ffffff;
+  border-left: 4px solid #198754;
+}
+
+.stats-grid h3 {
+  font-size: 1.8rem;
+  color: #198754;
+}
+
+.nav-tabs .nav-link {
+  font-weight: 600;
+  color: #0d6efd;
+  border: none;
+  border-bottom: 2px solid transparent;
+}
+
+.nav-tabs .nav-link.active {
+  background-color: #e9ecef;
+  border-bottom: 2px solid #0d6efd;
+  color: #0d6efd;
+}
+
+.table th {
+  background-color: #f1f1f1;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.alert-success {
+  font-weight: 600;
+  font-size: 1rem;
+  border-left: 5px solid #198754;
+}

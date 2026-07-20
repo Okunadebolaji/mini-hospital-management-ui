@@ -1,0 +1,22 @@
+<ng-container *ngIf="isAdmin">
+
+  <app-navbar
+  class="site-navbar"
+  [isSidebarCollapsed]="isSidebarCollapsed"
+  (toggleSidebar)="toggleSidebar()">
+</app-navbar>
+
+<app-sidebar
+  [collapsed]="isSidebarCollapsed"
+  class="site-sidebar"
+  [ngClass]="{ 'collapsed': isSidebarCollapsed }">
+</app-sidebar>
+
+<div class="main-content" [class.collapsed]="isSidebarCollapsed">
+  <div class="content-wrapper">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+
+</ng-container>

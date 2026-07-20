@@ -1,0 +1,89 @@
+<!-- Quick Stats Row -->
+<div class="row text-center mb-4" *ngIf="metrics">
+  <div class="col-md-6">
+    <div class="card border-0 shadow-sm bg-light-success">
+      <div class="card-body">
+        <h6 class="text-muted">Appointments Today</h6>
+        <h4 class="fw-bold">{{ metrics.appointmentsToday }}</h4>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card border-0 shadow-sm bg-light-warning">
+      <div class="card-body">
+        <h6 class="text-muted">Earnings Today</h6>
+        <h4 class="fw-bold">₦{{ metrics.earningsToday }}</h4>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="col-md-4">
+    <div class="card border-0 shadow-sm bg-light-info">
+      <div class="card-body">
+        <h6 class="text-muted">Pending Approvals</h6>
+        <h4 class="fw-bold">{{ getApprovalCount() }}</h4>
+
+
+      </div>
+    </div>
+  </div> -->
+</div>
+
+<!-- Metrics Cards -->
+<div class="row g-4" *ngIf="metrics">
+  <div class="col-md-4">
+    <div class="card card-hover border-0 shadow-sm">
+      <div class="card-body">
+        <h6 class="text-muted mb-1">Total Patients This Month</h6>
+        <h3 class="fw-bold">{{ metrics.totalPatientsThisMonth }}</h3>
+        <p class="text-muted small mb-2">All Time: {{ metrics.totalPatientsAllTime }}</p>
+        <a routerLink="/report/patients" class="btn btn-sm btn-light-primary">View report</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card card-hover border-0 shadow-sm">
+      <div class="card-body">
+        <h6 class="text-muted mb-1">Consultation</h6>
+        <h3 class="fw-bold">{{ metrics.consultations }}</h3>
+        <a routerLink="/report/consultation" class="btn btn-sm btn-light-primary">View report</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="col-md-3">
+    <div class="card card-hover border-0 shadow-sm">
+      <div class="card-body">
+        <h6 class="text-muted mb-1">Procedure</h6>
+        <h3 class="fw-bold">{{ metrics.procedures }}</h3>
+        <a routerLink="/report/procedure" class="btn btn-sm btn-light-primary">View report</a>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="col-md-4">
+    <div class="card card-hover border-0 shadow-sm">
+      <div class="card-body">
+        <h6 class="text-muted mb-1">Payment</h6>
+        <h3 class="fw-bold">₦{{ metrics.payments }}</h3>
+        <!-- <p class="text-muted small mb-2">Previous: ₦{{ metrics.previousPayments }}</p> -->
+        <a routerLink="/report/payment" class="btn btn-sm btn-light-primary">View report</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Success Rate Card -->
+<div class="row mt-4" *ngIf="metrics">
+  <div class="col-md-12" >
+    <div class="card card-hover border-0 shadow-sm" style="align-items: center;">
+      <div class="card-body">
+        <h6 class="text-muted mb-1">Success Rate</h6>
+<h3 class="fw-bold">{{ metrics.successRate }}%</h3>
+<p class="text-muted small mb-2">Change: +{{ metrics.successRateChange }}%</p>
+
+        <a routerLink="/report/success" class="btn btn-sm btn-light-primary">View report</a>
+      </div>
+    </div>
+  </div>
+</div>

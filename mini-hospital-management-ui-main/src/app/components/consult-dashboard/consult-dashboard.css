@@ -1,0 +1,126 @@
+:root {
+  --primary: #2c3e50;
+  --accent: #3498db;
+  --bg-light: #f4f6f9;
+  --card-bg: #fff;
+  --text-muted: #777;
+}
+
+.dashboard {
+  padding: 2rem;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: var(--bg-light);
+  min-height: 100vh;
+}
+
+.consult-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  background: var(--card-bg);
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.profile-img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--accent);
+}
+
+.profile-info h2 {
+  margin: 0;
+  color: var(--primary);
+}
+
+.profile-info .specialty {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.contact p {
+  margin: 0.25rem 0;
+  color: var(--text-muted);
+}
+
+.admissions h3 {
+  margin-bottom: 1rem;
+  color: var(--primary);
+}
+
+.admission-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.admission-card {
+  background: var(--card-bg);
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease;
+}
+
+.admission-card:hover {
+  transform: translateY(-4px);
+}
+
+.admission-card h4 {
+  margin: 0 0 0.5rem;
+  color: var(--accent);
+}
+
+.no-admissions {
+  text-align: center;
+  color: var(--text-muted);
+  margin: 2rem 0;
+}
+
+.metrics {
+  margin-top: 2rem;
+}
+
+.metric-cards {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.metric-card {
+  flex: 1;
+  min-width: 180px;
+  background: var(--card-bg);
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.metric-card h4 {
+  margin-bottom: 0.5rem;
+  color: var(--primary);
+}
+
+.metric-card p {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--accent);
+}
+.bg-gradient-primary {
+  background: linear-gradient(135deg, #007bff, #6610f2);
+}
+
+.bg-light-blue {
+  background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+}
